@@ -1,0 +1,50 @@
+const http = require('http');
+const { exec } = require('child_process');
+
+const server = http.createServer((req, res) => {
+  // Routing
+  
+  let data;
+  const chunks = [];
+  req.on("data", (chunk) => {
+    chunks.push(chunk);
+  });
+   req.on("end", () => {
+    console.log("all parts/chunks have arrived");
+    data = Buffer.concat(chunks);
+    //console.log("Data: ", data.toString());
+  if (req.url === '/') {
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end('Hello, world!');
+  } else if (req.url === '/hook') {
+   	let obj = JSON.parse(data.toString())
+	  if(obj.ref.split('/')[2] == 'master'){
+	  //console.log() 
+	  bash();
+	  }else{
+	console.log("not master branch")	
+	}
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end('Recieved');
+  } else {
+    res.writeHead(404, { 'Content-Type': 'text/plain' });
+    res.end('Page not found');
+  }
+  });
+
+});
+
+function bash(){
+var yourscript = exec('sh hi.sh',
+        (error, stdout, stderr) => {
+            console.log(stdout);
+            console.log(stderr);
+            if (error !== null) {
+                console.log(`exec error: ${error}`);
+            }
+        });
+}
+const port = 8082;
+server.listen(port, () => {
+  console.log(`Server listening on port ${port}`);
+});

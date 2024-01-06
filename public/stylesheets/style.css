@@ -1,8 +1,6 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+body{
+  background-color: rgb(71, 71, 71);
 }
-
-a {
-  color: #00B7FF;
+p,h1,h2,h3,h4,h5,h6,a,i{
+  color: aliceblue;
 }

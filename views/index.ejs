@@ -1,8 +1,21 @@
 <html>
   <head>
-
+    <link rel="stylesheet" href="stylesheets/style.css">
   </head>
   <body>
-    <h1>Hello <%= title %></h1>
+    <center>
+      <div>
+        <h1>Beethoven</h1>
+        <h4 style="margin-top: 20%; color: aqua;" >Login</h4>
+        <% if(!state) { %>
+        <p style="color: tomato;">Wrong pass or user!</p>
+        <% } %>
+        <form method="post" action="/login">
+        <input type="text" name="user" placeholder="username"><br><br>
+        <input type="password" name="pass" placeholder="pass"><br>
+        <input type="submit" value="OK">
+        </form>
+      </div>
+    </center>
   </body>
 </html>

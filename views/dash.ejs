@@ -1,15 +1,91 @@
 <html>
   <head>
     <link rel="stylesheet" href="stylesheets/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   </head>
   <body >
     <center>
       <div>
         <h1>Beethoven</h1>
+        <h4 style="color: aqua;">All microservice</h4>
+        <p>Path: <%= path %></p>
+        <table id="services" border =1>
+          <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>action</th>
+          </tr>
+          <% for(let i=0; i<=services.length-1; i++){ %>
+          <tr id="tr<%= i %>">
+            <td><p><%= services[i].id %></p></td>
+            <td><p><%= services[i].name %></p></td>
+            <td>
+              <button class="action<%=i%>1" name="<%=services[i].id%>" >State</button>
+              <button class="action<%=i%>2" name="<%=services[i].id%>">Rebuild</button>
+              <button class="action<%=i%>3" name="<%=services[i].id%>">Stop</button>
+            </td>
+          </tr>
+          <% } %>
+        </table>
+        <div id="console">
+        </div>
     </center>
-
     <script>
+      function ajaxer2(j, number, result){
+        if(result.result != ""){
+          $(".action"+j+number).removeClass("wrong")
+          $(".action"+j+numer).addClass("done")
+          $("#console").html(result.result)
+        }else{
+          $(".action"+j+number).addClass("wrong")
+          $(".action"+j+number).removeClass("done")
+        }
+      }
+      function ajaxer1(j , number, action, servId){
+        $.ajax({
+            type: "GET",
+            url: "/dash/"+servId+"/"+action,
+            success: function(result) {
+              setTimeout(()=>{
+                console.log(j)
+                $(".action"+j+number).removeAttr("disabled")
+                $.ajax({
+                  type: "GET",
+                  url: "/dash/result",
+                  success: function(result) {
+                    console.log(result)
+                    ajaxer2(j + number, result)
+                  },
+                  error: function(result) {
+                    alert('error');
+                  }
+                });
+              },3000)
+            },
+            error: function(result) {
+              alert('error');
+            }
+          });
+      }
+      let rowsCount = $("#services tr").length
+      for(let j=0; j<=rowsCount-2; j++){
+        let servId = $(".action"+j+"1").get(0).name;
+        $(".action"+j+"1").click(function(e) {
+          $(".action"+j+"1").attr("disabled", true)
+          ajaxer1(j, "1", "state", servId)
+        });
 
+        $(".action"+j+"2").click(function(e) {
+          $(".action"+j+"2").attr("disabled", true)
+          ajaxer1(j ,"2", "rebuild", servId)
+        
+        });
+
+        $(".action"+j+"3").click(function(e) {
+          $(".action"+j+"3").attr("disabled", true)
+          ajaxer1(j ,"3", "stop", servId)
+        });
+      }
     </script>
   </body>
 </html>

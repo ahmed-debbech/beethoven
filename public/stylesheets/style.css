@@ -4,3 +4,19 @@ body{
 p,h1,h2,h3,h4,h5,h6,a,i{
   color: aliceblue;
 }
+table{
+  color: aquamarine;
+  font-size: xx-large;
+}
+#console{
+  float: right;
+  border-color: aquamarine;
+  border: 1;
+  background-color: antiquewhite;
+}
+.done{
+  background-color: yellowgreen;
+}
+.wrong{
+  background-color: tomato;
+}

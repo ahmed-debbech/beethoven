@@ -21,12 +21,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 function getSessionCookie(req, i = 0) {
   var cookie = req.headers.cookie;
   // user=someone; session=mySessionID
-  
+  if(cookie == undefined) return null
   let arr = cookie.split('; ');
   return arr[i].split('=')[1]
 }
 const checkLogin = function (req, res, next) {
-  console.log(req.headers)
   console.log(req.originalUrl)
   if(req.originalUrl != '/' && req.originalUrl != '/login'){
       let ses_cookie = getSessionCookie(req);
@@ -36,7 +35,7 @@ const checkLogin = function (req, res, next) {
   }
   next()
 }
-app.use(checkLogin)
+//app.use(checkLogin)
 
 app.use('/', indexRouter);
 

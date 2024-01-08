@@ -34,7 +34,7 @@
       function ajaxer2(j, number, result){
         if(result.result != ""){
           $(".action"+j+number).removeClass("wrong")
-          $(".action"+j+numer).addClass("done")
+          $(".action"+j+number).addClass("done")
           $("#console").html(result.result)
         }else{
           $(".action"+j+number).addClass("wrong")
@@ -54,7 +54,7 @@
                   url: "/dash/result",
                   success: function(result) {
                     console.log(result)
-                    ajaxer2(j + number, result)
+                    ajaxer2(j , number, result)
                   },
                   error: function(result) {
                     alert('error');

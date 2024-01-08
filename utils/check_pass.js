@@ -15,7 +15,8 @@ async function encrypt(clearPass){
 async function compare(clearPass, user){
     if(user != 'user') return false;
 
-    //let hash = await encrypt(clearPass);
+    let hash = await encrypt(clearPass);
+    console.log(hash)
     let storedhash = files.readFileDirectly("pass");
     let result = await bcrypt.compare(clearPass, storedhash)
     return result;

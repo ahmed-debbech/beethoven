@@ -43,12 +43,13 @@ async function execute(serviceId, action){
     let path = dash.getPath();
     files.writeFileDirectly(path + "/buffer", "")
     let scriptName = scriptsMapper(action)
+    let cmd = 'sh ' + path +"/" + serviceId+"/" + scriptName  + " >> " +path+"/buffer";
+    console.log(cmd)
 
-    var yourscript = await exec('sh ' + path +"/" + serviceId+"/" + scriptName + " " +path+"/buffer",
+    var yourscript = await exec(cmd,
     (error, stdout, stderr) => {
         console.log("stdout: " + stdout);
         console.log("stderr: " + stderr);
-        files.writeFileDirectly(path + "/buffer", stdout)
         if (error !== null) {
             console.log(`exec error: ${error}`);
         }

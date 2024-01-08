@@ -35,7 +35,7 @@ const checkLogin = function (req, res, next) {
   }
   next()
 }
-//app.use(checkLogin)
+app.use(checkLogin)
 
 app.use('/', indexRouter);
 

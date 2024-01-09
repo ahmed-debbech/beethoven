@@ -23,6 +23,7 @@
               <button class="action<%=i%>1" name="<%=services[i].id%>" >State</button>
               <button class="action<%=i%>2" name="<%=services[i].id%>">Rebuild</button>
               <button class="action<%=i%>3" name="<%=services[i].id%>">Stop</button>
+              <button class="action<%=i%>4" name="<%=services[i].id%>">Start</button>
             </td>
           </tr>
           <% } %>
@@ -67,6 +68,7 @@
             }
           });
       }
+      
       let rowsCount = $("#services tr").length
       for(let j=0; j<=rowsCount-2; j++){
         let servId = $(".action"+j+"1").get(0).name;
@@ -84,6 +86,11 @@
         $(".action"+j+"3").click(function(e) {
           $(".action"+j+"3").attr("disabled", true)
           ajaxer1(j ,"3", "stop", servId)
+        });
+
+        $(".action"+j+"4").click(function(e) {
+          $(".action"+j+"4").attr("disabled", true)
+          ajaxer1(j ,"4", "start", servId)
         });
       }
     </script>

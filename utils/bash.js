@@ -27,10 +27,10 @@ function scriptsMapper(action){
             scriptName =  "state.sh"
             break;
         case "stop":
-            scriptName = "start_and_stop.sh"
+            scriptName = "stop.sh"
             break;
         case "start":
-            scriptName = "start_and_stop.sh"
+            scriptName = "start.sh"
             break;    
         case "rebuild":
             scriptName = "rebuild.sh"
